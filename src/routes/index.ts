@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { } from '../controllers';
+import {signIn}  from '../controllers/admin';
 
 const router = Router();
 // routes 
 router
-    .get('/') 
+    .post('/admin', signIn) 
 
 export default router;
