@@ -1,14 +1,3 @@
-export  function Topic(value: any) {
-  const { allIncome, incomeByMonth } = value
-  return function (target: any) {
-    console.log(target)
-    target.prototype.topic = {
-      allIncome,
-      incomeByMonth
-    }
-  }
-}
-
 export interface IAuth extends Document {
   _id?: string
   user: string,
@@ -25,10 +14,13 @@ export interface IErr {
 }
 
 export interface IIncome {
-  id?: string
+  _id?: string
+  _doc?: any
   title: string
   descript: string
   type: string
   CRC: string
   date?: Date
 }
+
+export interface IExpences extends IIncome {}

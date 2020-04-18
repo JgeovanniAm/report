@@ -9,4 +9,4 @@ const schema = new Schema({
   month: Number
 })
 
-export default model('allPermanentIncome', schema)
+export default model('all-expences', schema)

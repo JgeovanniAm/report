@@ -1,39 +1,43 @@
 import ModelAllIncome from '../models/all-income';
 import ModelIncomeBy from '../models/income-by-m';
+import { Document } from 'mongoose';
+import { IIncome } from '../util/const';
 
 export class Triggers {
-  private subscribers: any
+  private subscribers: any;
 
-  private deducted(bymonth: any):void {
+  private deducted(bymonth: Array<IIncome>): void {
     const date = new Date();
-    const month = new Date().getMinutes();
+    const month = new Date().getMonth();
     
-    ModelAllIncome.find().then((allIncome: any) => {
-      const thereIsPending = allIncome.filter((item: any) => item.month === month);
-      const proxIncome = bymonth.map((item: any) => {
+    ModelAllIncome.find().then((allIncome: Document[]) => {
+      // there are pendings to pay?
+      const thereIsPending = allIncome ? allIncome.filter((item: any) => item.month === month) : [];
+      const proxIncome = bymonth.map((item: IIncome) => { // add new properties to new Income
         item = { month, date, ...item._doc }
         delete item._id
         return item
       });
-      if (thereIsPending.length <= 0) {
-        proxIncome.map((item: any) => {
-          console.log('hay pendientes')
-          this.publish(item)
-        })
-      } else console.log('ya se hizo rebajo de esto')
+      this.verify(thereIsPending, proxIncome);
     })
   }
 
-  public async subscribe(callback: (item: any) => void) {
+  private verify(thereIsPending: any[], proxIncome: IIncome[]): void {
+    if (thereIsPending.length <= 0) {
+      proxIncome.map((item: IIncome) => {
+        this.publish(item)
+      })
+    }
+  }
+
+  public subscribe(callback: (item: IIncome) => void): void {
     this.subscribers = callback;
-     // estos consoles.log la idea es hacer un return de req, and req para mandar mensajes al usuario
     ModelIncomeBy.find().then((resultBy: any) => {
-      if (resultBy.length > 0) this.deducted(resultBy);
-      else console.log('no hay datos por mes o rebajas a descontar')
+      resultBy.length > 0 && this.deducted(resultBy);
     })
   }
 
-  private publish(income: any) {
+  private publish(income: IIncome): void {
     this.subscribers(income)
   }
 }

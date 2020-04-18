@@ -9,7 +9,7 @@ export const connectDB = () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }).then(result => {
-        trigger();
-    }).catch(err => err);
-    console.log('connectDb')
+        trigger()
+    })
+        .catch(err => err);
 }

@@ -1,31 +1,94 @@
-""" my query """
 
+scalar Date
+
+""" my query """
 type Query {
-    incomeByMonths: [incomeByMonth!]!
+    incomeByMonths: [IncomeByMonth!]!
+    expenses: [Expenses!]!
+    allIncomes: [AllIncomes!]!
+    expensesID(id: String): Expenses!
+    allIncomesID(id: String): AllIncomes!
+    statusMonth(month: Int ): Months!
 }
 
 """ mutation """
 
 type Mutation {
-    newIncomeByMonth( income: IncomeByMonth! ): incomeByMonth!
-    deleteIncomeByMonth( income: IncomeByMonth! ): incomeByMonth!
+    newIncomeByMonth( income: IncomeByMonthinput! ): IncomeByMonth!
+    deleteIncomeByMonth( income: deleteIncomeByMonth! ): IncomeByMonth!
+    newExpense( expense: ExpenseInput! ): Expenses!
+    deleteExpense( expense: deleteExpenseinput! ): Expenses!
 }
 
 """ inputs"""
-
-input IncomeByMonth {
-    _id: String
+input IncomeByMonthinput {
     title: String!
     descript: String!
-    type: String!,
-    CRC: String!,
+    type: String!
+    CRC: String!
+}
+
+input deleteIncomeByMonth {
+    _id: String
+    month: Int
+    date: Date
+    title: String!
+    descript: String!
+    type: String!
+    CRC: String!
+}
+
+input ExpenseInput {
+    title: String!
+    descript: String!
+    type: String!
+    CRC: String!
+    date: Date!
+    month: Int
+}
+
+input deleteExpenseinput {
+    _id: String!
+    date: Date!
+    title: String!
+    descript: String!
+    type: String!
+    CRC: String!
 }
 
 """ my types """
 
-type incomeByMonth {
+type IncomeByMonth {
+    _id: String!
     title: String!
     descript: String!
-    type: String!,
-    CRC: String!,
+    type: String!
+    CRC: String!
+    month: Int
+    date: Date
+}
+
+type AllIncomes {
+    _id: String!
+    title: String!
+    descript: String!
+    type: String!
+    CRC: String!
+    month: Int
+    date: Date
+}
+
+type Expenses {
+    _id: String!
+    title: String!
+    descript: String!
+    type: String!
+    CRC: String!
+    month: Int!
+    date: Date
+}
+
+type Months {
+    incomes: [AllIncomes!]!
+    expenses: [Expenses!]!
 }
