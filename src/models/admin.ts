@@ -5,4 +5,4 @@ const schema = new Schema({
     password: String,
 })
 
-export default model('adminModel', schema, 'adminModel')
+export default model('adminModel', schema,'adminModel')
