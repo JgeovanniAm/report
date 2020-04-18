@@ -1,0 +1,74 @@
+""" my query """
+
+type Query {
+    students: [Students!]!
+    student( id: ID!): Students!
+    course: [Course!]!
+    courseId( id: ID! ): Course!
+}
+
+""" mutation """
+
+type Mutation {
+    newCourse( course: CourseInput! ): Course!
+    editCourse( course: CourseInput! ): Course!
+    deleteCourse( course: CourseInput! ): Course!
+}
+
+""" inputs"""
+
+input CourseInput {
+    id: ID
+    title: String!
+    description: String!
+    class: Int
+    time: Float!
+    logo: String!
+    level: EnumLevel = EVERYBODY
+    path: String!
+    teacher: String!
+}
+
+""" my types """
+
+type Students {
+    id: ID!
+    name: String!
+    email: String!
+    website: String!
+    course: [Course!]!
+}
+
+type Course {
+    id: ID!
+    title: String!
+    description: String!
+    class: Int
+    time: Float!
+    logo: String!
+    level: EnumLevel!
+    path: String!
+    teacher: String!
+    students: [Students]!
+    reviews: [values!]!
+}
+
+enum EnumLevel {
+    EVERYBODY
+    BENGINNER
+    MID
+    EXPERT
+}
+
+type values implements Ivalues {
+    id: ID!
+    name: String!
+    point: Float!
+    comments: String!
+}
+
+interface Ivalues {
+    id: ID!
+    name: String!
+    point: Float!
+}
