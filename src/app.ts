@@ -18,8 +18,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use('/api', routes); // routes 
-app.use('/reportgl', JWT )
-
+app.use('/reportgl', JWT)
 apolloServer.applyMiddleware({ app, path: '/reportgl' });
 
 export default app
