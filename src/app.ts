@@ -1,16 +1,24 @@
 import express from 'express';
 import morgan from 'morgan';
 import routes from './routes/index';
-import  cors from 'cors';
+import cors from 'cors';
 import apolloServer from './grapql/';
 import bodyParser from 'body-parser';
-import {JWT} from './controllers/report';
+import { JWT } from './controllers/report';
 
 const app = express();
 
 // settings 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 5000);
 // middlewares
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+  next();
+});
+
 app.use(cors())
 app.use(morgan('dev'));
 app.use(express.json());
@@ -18,7 +26,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use('/api', routes); // routes 
-app.use('/reportgl', JWT)
-apolloServer.applyMiddleware({ app, path: '/reportgl' });
+
+apolloServer.applyMiddleware({ app, path: '/api/reportgl' });
 
 export default app

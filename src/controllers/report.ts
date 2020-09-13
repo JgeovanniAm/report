@@ -1,9 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import Util from '../util/utils';
-
-dotenv.config();
 
 export const JWT = (req: Request, res: Response, next: NextFunction) => {
   const token: any = req.headers['report-access-token'];

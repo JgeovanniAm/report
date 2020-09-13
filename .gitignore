@@ -1,4 +1,12 @@
+package-lock.json
+.now
 node_modules
-.DS_Store
-.env
+nodemon.json
 dist
+now.json
+
+
+
+
+
+

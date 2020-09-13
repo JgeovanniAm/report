@@ -6,7 +6,6 @@ const schema = new Schema({
   type: String,
   CRC: String,
   date: Date,
-  month: Number
 })
 
 export default model('all-expences', schema)

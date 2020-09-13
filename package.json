@@ -6,11 +6,13 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run build && node dist/index.js",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "publish": "now --prod"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apollo-server": "^2.0.0-rc.5",
     "apollo-server-express": "^2.12.0",
     "bcryptjs": "^2.4.3",
     "body-parse": "^0.1.0",
@@ -21,9 +23,11 @@
     "fs-extra": "^8.1.0",
     "graphql": "^14.6.0",
     "graphql-import-node": "0.0.4",
+    "graphql-iso-date": "^3.6.1",
     "graphql-playground-middleware-express": "^1.7.12",
     "graphql-tools": "^4.0.7",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
     "mongoose": "^5.9.7",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
@@ -31,6 +35,7 @@
     "typescript": "^3.8.3"
   },
   "devDependencies": {
+    "@now/node": "^1.5.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.19.0",
     "@types/cors": "^2.8.6",
@@ -38,7 +43,7 @@
     "@types/express": "^4.17.3",
     "@types/express-graphql": "^0.9.0",
     "@types/fs-extra": "^8.1.0",
-    "@types/graphql": "^14.5.0",
+    "@types/graphql": "^14.2.3",
     "@types/jsonwebtoken": "^8.3.9",
     "@types/mongoose": "^5.7.6",
     "@types/morgan": "^1.9.0",

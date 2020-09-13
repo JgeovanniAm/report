@@ -1,15 +1,11 @@
 import { connect } from 'mongoose';
 import dotenv from 'dotenv';
-import { trigger } from './triggers';
 dotenv.config();
 
 const client = `${process.env.URIDATABASE}`;
-export const connectDB = () => {
-    connect(client, {
+export const connectDB = async () => {
+    const result = await connect(client, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-    }).then(result => {
-        trigger()
     })
-        .catch(err => err);
 }
