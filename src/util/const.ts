@@ -1,5 +1,7 @@
-export interface IAuth extends Document {
-  _id?: string
+import * as mongoose from 'mongoose';
+
+export interface IAuth extends mongoose.Document {
+  _id: string
   user: string,
   password: string,
 }

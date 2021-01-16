@@ -4,7 +4,7 @@ dotenv.config();
 
 const client = `${process.env.URIDATABASE}`;
 export const connectDB = async () => {
-    const result = await connect(client, {
+    await connect(client, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })

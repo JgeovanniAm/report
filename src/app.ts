@@ -3,7 +3,6 @@ import morgan from 'morgan';
 import routes from './routes/index';
 import cors from 'cors';
 import apolloServer from './grapql/';
-import bodyParser from 'body-parser';
 import { JWT } from './controllers/report';
 
 const app = express();
@@ -16,17 +15,14 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-  next();
+  next()
 });
 
 app.use(cors())
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
 app.use('/api', routes); // routes 
-
-apolloServer.applyMiddleware({ app, path: '/api/reportgl' });
+app.use('/api/reportgl', JWT)
+apolloServer.applyMiddleware({ app, path: '/api/reportgl' }); // error type - upgrade @type/zexpress
 
 export default app

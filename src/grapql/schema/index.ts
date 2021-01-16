@@ -86,6 +86,8 @@ type Months {
     expenses: [Expenses!]!
 }
 `
+
+
 export const schema: GraphQLSchema = makeExecutableSchema({ // connect my typeDef and resolvers how a schema
     typeDefs: typeQuery,
     resolvers: resolve,
